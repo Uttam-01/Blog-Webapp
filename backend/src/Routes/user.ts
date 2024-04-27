@@ -31,7 +31,9 @@ userRouter.post('/signup', async (c) => {
 			}
 		});
     const jwt = await sign({ id: user.id }, c.env.JWT_SECRET);
-		return c.json({ jwt });
+		return c.json({
+			jwt:`Bearer ${jwt}`
+		});
 	} catch(e) {
 		return c.status(403);
 	}
@@ -64,7 +66,9 @@ userRouter.post('/signin', async (c) => {
 		  return c.json({ error: "incorrect password" });
     }else{
       const jwt = await sign({ id: user.id }, c.env.JWT_SECRET);
-		  return c.json({ jwt });
+		  return c.json({
+			jwt:`Bearer ${jwt}`
+		});
     }
   } catch (e) {
     return c.status(403);
